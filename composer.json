@@ -1,0 +1,18 @@
+{
+    "name": "ac/model-traits",
+    "description": "Traits to reduce boilerplate when creating models.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Evan Villemez",
+            "email": "evan.villemez@americancouncils.org"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "AC\\ModelTraits\\": "" }
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4.0"
+    }
+}
