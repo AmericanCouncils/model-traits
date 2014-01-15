@@ -1,5 +1,7 @@
 # Model Traits #
 
+[![Build Status](https://travis-ci.org/AmericanCouncils/model-traits.png?branch=master)](https://travis-ci.org/AmericanCouncils/model-traits)
+
 This is a small convenience library for reusing some common patterns in model classes.  Each trait is defined
 in a section below.
 
