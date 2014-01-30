@@ -17,12 +17,25 @@ trait AbstractGetterSetterTrait
 
         if (!isset(static::$acModelTraitsMethodMap[$method])) {
             throw new \BadMethodCallException(sprintf(
-                "No such AC\ModelTraits getter/setter method [%s] for class [%s].",
+                "No such method [%s] for class [%s].",
                 $method, get_class($this)
             ));
         }
         $data = static::$acModelTraitsMethodMap[$method];
         return $this->{$data['method']}($data['name'], $args);
+    }
+
+    protected function acModelTraitsGetProperty($name, $args)
+    {
+        return $this->$name;
+    }
+
+    protected function acModelTraitsGetPrivateProperty($name, $args)
+    {
+        $getter = \Closure::bind(function () use ($name, $args) {
+            return $this->$name;
+        }, $this, $this);
+        return $getter($name, $args);
     }
 
     protected function acModelTraitsSetProperty($name, $args)
@@ -31,9 +44,13 @@ trait AbstractGetterSetterTrait
         return $this;
     }
 
-    protected function acModelTraitsGetProperty($name, $args)
+    protected function acModelTraitsSetPrivateProperty($name, $args)
     {
-        return $this->$name;
+        $setter = \Closure::bind(function () use ($name, $args) {
+            $this->$name = $args[0];
+            return $this;
+        }, $this, $this);
+        return $setter($name, $args);
     }
 
     abstract protected function acModelTraitsGenerateMethodMap();
