@@ -38,11 +38,8 @@ class GetterSetterTraitTest extends \PHPUnit_Framework_TestCase
     public function testOverriddenMethods()
     {
         $g = new Group();
-        $g->setName('Test');
-        $g->setOwner(new Person(5));
-
-        $this->setExpectedException('Exception');
-        $g->setOwner(5);
+        $r = $g->setOwner(new Person(5));
+        $this->assertSame("foo", $r);
     }
 
     public function testInheritedTrait()

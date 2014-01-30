@@ -16,5 +16,6 @@ class Group
     public function setOwner(Person $person)
     {
         $this->owner = $person;
+        return "foo";
     }
 }
