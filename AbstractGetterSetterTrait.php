@@ -16,18 +16,17 @@ trait AbstractGetterSetterTrait
         }
 
         if (!isset(static::$acModelTraitsMethodMap[$method])) {
-            throw new \RuntimeException(sprintf("Method [%s] missing in class [%s].", $method, get_class($this)));
+            throw new \BadMethodCallException(sprintf(
+                "Method [%s] missing in class [%s].", $method, get_class($this)
+            ));
         }
-
         $data = static::$acModelTraitsMethodMap[$method];
-
         return $this->{$data['method']}($data['name'], $args);
     }
 
     protected function acModelTraitsSetProperty($name, $args)
     {
         $this->$name = $args[0];
-
         return $this;
     }
 

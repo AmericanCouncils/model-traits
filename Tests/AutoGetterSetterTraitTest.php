@@ -6,7 +6,7 @@ use AC\ModelTraits\Tests\Model\Person;
 use AC\ModelTraits\Tests\Model\Group;
 use AC\ModelTraits\Tests\Model\Corvette;
 
-class GetterSetterTraitTest extends \PHPUnit_Framework_TestCase
+class AutoGetterSetterTraitTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetAndSetPublicProperty()
     {
@@ -31,7 +31,7 @@ class GetterSetterTraitTest extends \PHPUnit_Framework_TestCase
         $p = new Person(5);
         $this->assertSame(5, $p->getId());
 
-        $this->setExpectedException('RuntimeException');
+        $this->setExpectedException('BadMethodCallException');
         $p->setId(1);
     }
 
