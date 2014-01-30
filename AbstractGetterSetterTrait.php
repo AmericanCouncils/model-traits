@@ -17,7 +17,8 @@ trait AbstractGetterSetterTrait
 
         if (!isset(static::$acModelTraitsMethodMap[$method])) {
             throw new \BadMethodCallException(sprintf(
-                "Method [%s] missing in class [%s].", $method, get_class($this)
+                "No such AC\ModelTraits getter/setter method [%s] for class [%s].",
+                $method, get_class($this)
             ));
         }
         $data = static::$acModelTraitsMethodMap[$method];
