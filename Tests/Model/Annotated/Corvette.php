@@ -9,5 +9,6 @@ class Corvette extends AbstractCar
     /**
      * @ACMT\GetterAndSetter
      */
-    private $color;
+    // FIXME: Try making this private
+    protected $color;
 }

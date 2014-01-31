@@ -30,27 +30,10 @@ trait AbstractGetterSetterTrait
         return $this->$name;
     }
 
-    protected function acModelTraitsGetPrivateProperty($name, $args)
-    {
-        $getter = \Closure::bind(function () use ($name, $args) {
-            return $this->$name;
-        }, $this, $this);
-        return $getter($name, $args);
-    }
-
     protected function acModelTraitsSetProperty($name, $args)
     {
         $this->$name = $args[0];
         return $this;
-    }
-
-    protected function acModelTraitsSetPrivateProperty($name, $args)
-    {
-        $setter = \Closure::bind(function () use ($name, $args) {
-            $this->$name = $args[0];
-            return $this;
-        }, $this, $this);
-        return $setter($name, $args);
     }
 
     abstract protected function acModelTraitsGenerateMethodMap();

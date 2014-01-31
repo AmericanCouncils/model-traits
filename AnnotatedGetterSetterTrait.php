@@ -52,13 +52,11 @@ trait AnnotatedGetterSetterTrait
             }
 
             if ($getterEnabled) {
-                $method = 'acModelTraitsGet' . ($prop->isPrivate() ? 'Private' : '') . 'Property';
-                $map[$getter] = ['name' => $name, 'method' => $method];
+                $map[$getter] = ['name' => $name, 'method' => 'acModelTraitsGetProperty'];
             }
 
             if ($setterEnabled) {
-                $method = 'acModelTraitsSet' . ($prop->isPrivate() ? 'Private' : '') . 'Property';
-                $map[$setter] = ['name' => $name, 'method' => $method];
+                $map[$setter] = ['name' => $name, 'method' => 'acModelTraitsSetProperty'];
             }
         }
 
