@@ -22,16 +22,16 @@ trait AnnotatedGetterSetterTrait
             $getterEnabled = false;
             $setterEnabled = false;
 
-            if ($reader->getPropertyAnnotation($prop, GetterAndSetter::class)) {
+            if ($reader->getPropertyAnnotation($prop, 'AC\ModelTraits\Annotation\GetterAndSetter')) {
                 $getterEnabled = true;
                 $setterEnabled = true;
             }
 
-            if ($reader->getPropertyAnnotation($prop, Getter::class)) {
+            if ($reader->getPropertyAnnotation($prop, 'AC\ModelTraits\Annotation\Getter')) {
                 $getterEnabled = true;
             }
-            
-            if ($reader->getPropertyAnnotation($prop, Setter::class)) {
+
+            if ($reader->getPropertyAnnotation($prop, 'AC\ModelTraits\Annotation\Setter')) {
                 $setterEnabled = true;
             }
 
