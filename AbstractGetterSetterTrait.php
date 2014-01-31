@@ -7,21 +7,32 @@ namespace AC\ModelTraits;
  */
 trait AbstractGetterSetterTrait
 {
-    protected static $acModelTraitsMethodMap = false;
+    protected function acModelTraitsGetMethodMap()
+    {
+        $clsname = get_class($this);
+        static $metaMap = [];
+        if (!isset($metaMap[$clsname])) {
+            $metaMap[$clsname] = [];
+            $cls = new \ReflectionClass($clsname);
+            while ($cls) {
+                $map = $this->acModelTraitsGenerateMethodMap($cls);
+                $metaMap[$clsname] = array_merge($metaMap[$clsname], $map);
+                $cls = $cls->getParentClass();
+            }
+        }
+        return $metaMap[$clsname];
+    }
 
     public function __call($method, $args)
     {
-        if (!static::$acModelTraitsMethodMap) {
-            static::$acModelTraitsMethodMap = $this->acModelTraitsGenerateMethodMap();
-        }
-
-        if (!isset(static::$acModelTraitsMethodMap[$method])) {
+        $map = $this->acModelTraitsGetMethodMap();
+        if (!isset($map[$method])) {
             throw new \BadMethodCallException(sprintf(
                 "No such method [%s] for class [%s].",
                 $method, get_class($this)
             ));
         }
-        $data = static::$acModelTraitsMethodMap[$method];
+        $data = $map[$method];
         return $this->{$data['method']}($data['name'], $args);
     }
 
@@ -36,5 +47,5 @@ trait AbstractGetterSetterTrait
         return $this;
     }
 
-    abstract protected function acModelTraitsGenerateMethodMap();
+    abstract protected function acModelTraitsGenerateMethodMap($class);
 }

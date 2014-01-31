@@ -6,9 +6,8 @@ trait AutoGetterSetterTrait
 {
     use AbstractGetterSetterTrait;
 
-    protected function acModelTraitsGenerateMethodMap()
+    protected function acModelTraitsGenerateMethodMap($class)
     {
-        $class = new \ReflectionClass($this);
         $map = [];
 
         foreach ($class->getProperties() as $prop) {

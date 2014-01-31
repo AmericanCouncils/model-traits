@@ -10,29 +10,13 @@ trait AnnotatedGetterSetterTrait
 {
     use AbstractGetterSetterTrait;
 
-    private function acModelTraitsPropsFetch($cls)
-    {
-        $props = [];
-        foreach ($cls->getProperties() as $prop) {
-            $props[$prop->getName()] = $prop;
-        }
-        if ($parent = $cls->getParentClass()) {
-            $props = array_merge($props, $this->acModelTraitsPropsFetch($parent));
-        }
-        foreach ($cls->getTraits() as $name => $trait) {
-            $props = array_merge($props, $this->acModelTraitsPropsFetch($trait));
-        }
-        return $props;
-    }
-
-
-    protected function acModelTraitsGenerateMethodMap()
+    protected function acModelTraitsGenerateMethodMap($class)
     {
         $reader = AnnotationReaderFetcher::getReader();
-        $class = new \ReflectionClass($this);
         $map = [];
 
-        foreach ($this->acModelTraitsPropsFetch($class) as $name => $prop) {
+        foreach ($class->getProperties() as $prop) {
+            $name = $prop->getName();
             $getter = 'get'.ucfirst($name);
             $setter = 'set'.ucfirst($name);
             $getterEnabled = false;
