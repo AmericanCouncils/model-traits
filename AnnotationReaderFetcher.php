@@ -8,20 +8,25 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 class AnnotationReaderFetcher
 {
     private static $reader;
+    private static $readerFetchFunc;
 
     public static function getReader()
     {
         if (!isset(static::$reader)) {
-            $loader = require('vendor/autoload.php');
-            AnnotationRegistry::registerLoader([$loader, 'loadClass']);
-            static::$reader = new AnnotationReader;
+            if (isset(static::$readerFetchFunc)) {
+                static::$reader = call_user_func(static::$readerFetchFunc);
+            } else {
+                $loader = require('vendor/autoload.php');
+                AnnotationRegistry::registerLoader([$loader, 'loadClass']);
+                static::$reader = new AnnotationReader;
+            }
         }
 
         return static::$reader;
     }
 
-    public static function setReader($r)
+    public static function setReaderFetchFunc($r)
     {
-        static::$reader = $r;
+        static::$readerFetchFunc = $r;
     }
 }
