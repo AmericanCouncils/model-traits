@@ -13,6 +13,7 @@
         "psr-4": { "AC\\ModelTraits\\": "" }
     },
     "require": {
-        "php": ">=5.4.0"
+        "php": ">=5.4.0",
+        "doctrine/annotations": "1.1.2"
     }
 }

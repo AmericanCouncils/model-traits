@@ -2,11 +2,11 @@
 
 namespace AC\ModelTraits\Tests;
 
-use AC\ModelTraits\Tests\Model\Person;
-use AC\ModelTraits\Tests\Model\Group;
-use AC\ModelTraits\Tests\Model\Corvette;
+use AC\ModelTraits\Tests\Model\Annotated\Person;
+use AC\ModelTraits\Tests\Model\Annotated\Group;
+use AC\ModelTraits\Tests\Model\Annotated\Corvette;
 
-class GetterSetterTraitTest extends \PHPUnit_Framework_TestCase
+class AnnotatedGetterSetterTraitTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetAndSetPublicProperty()
     {
@@ -17,32 +17,30 @@ class GetterSetterTraitTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('Foobert', $p->getName());
     }
 
-    public function testGetAndSetProtectedProperty()
+    public function testSetOnlyProperty()
     {
         $p = new Person();
-        $this->assertNull($p->getAge());
-
         $p->setAge(86);
-        $this->assertSame(86, $p->getAge());
+        $this->assertSame(86, $p->age);
+
+        $this->setExpectedException('BadMethodCallException');
+        $p->getAge();
     }
 
-    public function testGetAndSetPrivateProperty()
+    public function testGetOnlyProperty()
     {
         $p = new Person(5);
         $this->assertSame(5, $p->getId());
 
-        $this->setExpectedException('RuntimeException');
+        $this->setExpectedException('BadMethodCallException');
         $p->setId(1);
     }
 
     public function testOverriddenMethods()
     {
         $g = new Group();
-        $g->setName('Test');
-        $g->setOwner(new Person(5));
-
-        $this->setExpectedException('Exception');
-        $g->setOwner(5);
+        $r = $g->setOwner(new Person(5));
+        $this->assertSame("foo", $r);
     }
 
     public function testInheritedTrait()

@@ -2,12 +2,12 @@
 
 namespace AC\ModelTraits\Tests\Model;
 
-use AC\ModelTraits\GetterSetterTrait;
+use AC\ModelTraits\AutoGetterSetterTrait;
 use AC\ModelTraits\ArrayFactoryTrait;
 
 class Person
 {
-    use GetterSetterTrait, ArrayFactoryTrait;
+    use AutoGetterSetterTrait, ArrayFactoryTrait;
 
     private $id;
     public $name;
