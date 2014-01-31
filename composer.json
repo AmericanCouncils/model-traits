@@ -1,7 +1,6 @@
 {
     "name": "ac/model-traits",
     "description": "Traits to reduce boilerplate when creating models.",
-    "version": "0.2.0",
     "license": "MIT",
     "keywords": ["model", "trait", "getter", "setter", "factory"],
     "authors": [
