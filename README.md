@@ -7,9 +7,9 @@ in a section below.
 
 ## Installing ##
 
-Just require `"ac/model-traits": "0.1.0"` in your `composer.json` and run `composer update ac/model-traits`.
+Just require `"ac/model-traits": "0.2.0"` in your `composer.json` and run `composer update ac/model-traits`.
 
-## GetterSetterTrait ##
+## AutoGetterSetterTrait ##
 
 This will use some reflection magic to allow you to use getters/setters for any property, without having to define them yourself.  Of course
 you are still free to explicitly override any getters/setters for properties where you want or need custom logic.  Some assumptions are baked
@@ -21,15 +21,15 @@ into this:
 Example:
 
 ```php
-use AC\ModelTraits\GetterSetterTrait;
+use AC\ModelTraits\AutoGetterSetterTrait;
 
 class MyModel
 {
-    use GetterSetterTrait;
+    use AutoGetterSetterTrait;
 
     private $id;
     protected $name;
-    protected $description;
+    protected $age;
 
     public function __construct($id = null)
     {
@@ -45,6 +45,37 @@ echo $m->getId();       //5
 echo $m->getName();     //John
 echo $m->getAge();      //23
 ```
+
+## AnnotatedGetterSetterTrait ##
+
+If you want to more precisely specify which properties will have getters/setters created, you can use the annotation-based trait:
+
+```php
+use AC\ModelTraits\AnnotatedGetterSetterTrait;
+use AC\ModelTraits\Annotation as MT;
+
+class MyModel
+{
+    use AnnotatedGetterSetterTrait;
+
+    /**
+     * @MT\Getter
+     */
+    private $id
+
+    /**
+     * @MT\GetterAndSetter
+     */
+    private $name;
+
+    /**
+     * @MT\GetterAndSetter
+     */
+    protected $age;
+}
+```
+
+Properties can have any combination of access level (public, protected, or private) and accessor methods (getter and/or setter).
 
 ## ArrayFactoryTrait ##
 
